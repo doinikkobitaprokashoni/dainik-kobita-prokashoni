@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <title>ডিজাইন স্টুডিও | কার্ড তৈরি করুন</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        body { font-family: 'Hind Siliguri', sans-serif; background: #05070a; color: white; text-align: center; padding-top: 50px; }
+        #canvas { width: 350px; height: 350px; margin: 20px auto; background: #1a1a2e; border: 5px solid #d4af37; border-radius: 15px; display: flex; align-items: center; justify-content: center; position: relative; padding: 20px; box-sizing: border-box; }
+        #text-out { font-size: 22px; white-space: pre-wrap; line-height: 1.5; }
+        .controls { background: #161b22; padding: 20px; border-radius: 15px; max-width: 350px; margin: 0 auto; border: 1px solid #30363d; }
+        textarea { width: 90%; height: 60px; margin-bottom: 10px; border-radius: 8px; padding: 8px; }
+        .btn { background: #d4af37; border: none; padding: 10px 20px; border-radius: 20px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 10px; }
+        .watermark { position: absolute; bottom: 10px; right: 10px; font-size: 10px; color: #d4af37; opacity: 0.6; }
+    </style>
+</head>
+<body>
+    <h2>সাগর ডিজাইন স্টুডিও</h2>
+    <div id="canvas">
+        <div id="text-out">আপনার লেখা এখানে...</div>
+        <div class="watermark">দৈনিক কবিতা প্রকাশনী</div>
+    </div>
+    <div class="controls">
+        <textarea id="text-in" placeholder="এখানে কবিতা বা উক্তি লিখুন..."></textarea>
+        <div style="display:flex; justify-content: space-between;">
+            <input type="color" id="bg-col" value="#1a1a2e">
+            <input type="color" id="txt-col" value="#ffffff">
+        </div>
+        <button class="btn" onclick="download()">ছবি সেভ করুন</button>
+    </div>
+    <br><a href="index.html" style="color:#d4af37; text-decoration:none;">← ফিরে যান</a>
+
+    <script>
+        const input = document.getElementById('text-in');
+        const output = document.getElementById('text-out');
+        input.oninput = () => output.innerText = input.value || "আপনার লেখা এখানে...";
+        document.getElementById('bg-col').oninput = (e) => document.getElementById('canvas').style.background = e.target.value;
+        document.getElementById('txt-col').oninput = (e) => output.style.color = e.target.value;
+        function download() {
+            html2canvas(document.querySelector("#canvas")).then(canvas => {
+                let a = document.createElement('a'); a.download = 'design.png'; a.href = canvas.toDataURL(); a.click();
+            });
+        }
+    </script>
+</body>
+</html>
