@@ -328,3 +328,21 @@
 </script>
 </body>
 </html>
+
+manifest.json {
+  "name": "দৈনিক কবিতা প্রকাশনী",
+  "short_name": "সাগর কবিতা",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#05070a",
+  "theme_color": "#d4af37",
+  "icons": [{ "src": "1000004837.png", "sizes": "192x192", "type": "image/png" }]
+}
+
+
+sw.js self.addEventListener('install', (e) => {
+  e.waitUntil(caches.open('v1').then((c) => c.addAll(['index.html', 'studio.html', '1000004837.png'])));
+});
+self.addEventListener('fetch', (e) => {
+  e.respondWith(caches.match(e.request).then((res) => res || fetch(e.request)));
+});
