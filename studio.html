@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>কবিতা এডিটর স্টুডিও | দৈনিক কবিতা প্রকাশনী</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;700&display=swap');
+        
+        :root { --gold: #d4af37; --royal: #1a1a2e; --dark: #0f0f1a; }
+        body { font-family: 'Hind Siliguri', sans-serif; background: var(--dark); color: white; text-align: center; margin: 0; padding: 20px; padding-top: 100px; }
+        
+        /* গ্লাস মরফিজম হেডার */
+        header { background: rgba(26, 26, 46, 0.8); backdrop-filter: blur(10px); padding: 12px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--gold); position: fixed; top: 0; width: 90%; z-index: 1000; left: 5%; border-radius: 0 0 20px 20px; }
+        .logo-area { display: flex; align-items: center; gap: 12px; color: white; font-weight: bold; text-decoration:none; }
+        .logo-area img { width: 45px; height: 45px; border-radius: 50%; border: 2px solid var(--gold); }
+
+        /* মেইন ক্যানভাস */
+        #canvas-area { 
+            width: 350px; height: 350px; 
+            margin: 20px auto; 
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); 
+            display: flex; align-items: center; justify-content: center; 
+            border: 8px double var(--gold); 
+            border-radius: 20px; 
+            position: relative; 
+            overflow: hidden; 
+            padding: 30px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        #text-preview { font-size: 24px; line-height: 1.6; color: white; white-space: pre-wrap; font-weight: 500; text-shadow: 1px 1px 2px rgba(0,0,0,0.3); }
+        
+        .watermark { position: absolute; bottom: 15px; right: 15px; display: flex; align-items: center; gap: 5px; opacity: 0.6; }
+        .watermark img { width: 25px; border-radius: 50%; }
+        .watermark span { font-size: 10px; color: var(--gold); letter-spacing: 1px; }
+
+        /* কন্ট্রোল প্যানেল */
+        .controls { max-width: 380px; margin: 0 auto; background: #16213e; padding: 25px; border-radius: 25px; border: 1px solid #30363d; box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
+        textarea { width: 92%; height: 80px; padding: 12px; border-radius: 12px; border: 1px solid #1a1a2e; background: var(--dark); color: white; margin-bottom: 15px; font-family: inherit; font-size: 15px; resize: none; }
+        
+        .tool-box { display: flex; justify-content: space-between; margin-bottom: 20px; gap: 10px; align-items: center; }
+        .color-picker { display: flex; flex-direction: column; align-items: center; font-size: 11px; color: var(--gold); }
+        input[type="color"] { border: none; width: 35px; height: 35px; cursor: pointer; background: none; margin-top: 5px; }
+        
+        .btn-group { display: flex; gap: 8px; }
+        .btn { padding: 10px 18px; border-radius: 12px; border: none; cursor: pointer; font-weight: bold; transition: 0.3s; font-size: 13px; }
+        .btn-download { background: linear-gradient(45deg, var(--gold), #b8860b); color: black; width: 100%; margin-top: 10px; font-size: 16px; text-transform: uppercase; letter-spacing: 1px; }
+        .btn-bg { background: #0f3460; color: white; }
+        .btn:hover { transform: translateY(-2px); opacity: 0.9; }
+
+        footer { margin-top: 30px; font-size: 12px; color: #8b949e; }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="index.html" class="logo-area">
+        <img src="image_9.png" alt="লোগো">
+        ডিজাইন স্টুডিও
+    </a>
+    <a href="index.html" style="color:var(--gold); text-decoration:none; font-size:14px; font-weight:bold;">
+        <i class="fas fa-home"></i> হোম
+    </a>
+</header>
+
+<div id="canvas-area">
+    <div id="text-preview">আপনার সুন্দর কবিতা বা উক্তিটি এখানে লিখুন...</div>
+    <div class="watermark">
+        <span>দৈনিক কবিতা প্রকাশনী</span>
+        <img src="image_9.png" alt="logo">
+    </div>
+</div>
+
+<div class="controls">
+    <textarea id="user-text" placeholder="এখানে আপনার মনের কথা লিখুন..."></textarea>
+    
+    <div class="tool-box">
+        <div class="color-picker">
+            <small>লেখা</small>
+            <input type="color" id="text-color" value="#ffffff">
+        </div>
+        <div class="color-picker">
+            <small>ব্যাকগ্রাউন্ড</small>
+            <input type="color" id="bg-color" value="#1a1a2e">
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-bg" onclick="changeFontSize(2)"><i class="fas fa-plus"></i></button>
+            <button class="btn btn-bg" onclick="changeFontSize(-2)"><i class="fas fa-minus"></i></button>
+        </div>
+    </div>
+
+    <button class="btn btn-download" onclick="downloadImage()">
+        <i class="fas fa-cloud-download-alt"></i> গ্যালারিতে সেভ করুন
+    </button>
+</div>
+
+<footer>
+    &copy; ২০২৬ মোজাম্মেল হক সাগর | সকল স্বত্ব সংরক্ষিত
+</footer>
+
+<script>
+    const textInput = document.getElementById('user-text');
+    const textPreview = document.getElementById('text-preview');
+    const canvasArea = document.getElementById('canvas-area');
+
+    // টাইপ করার সাথে সাথে আপডেট
+    textInput.addEventListener('input', () => {
+        textPreview.innerText = textInput.value || "আপনার সুন্দর কবিতা বা উক্তিটি এখানে লিখুন...";
+    });
+
+    // কালার পরিবর্তন
+    document.getElementById('text-color').addEventListener('input', (e) => {
+        textPreview.style.color = e.target.value;
+    });
+
+    document.getElementById('bg-color').addEventListener('input', (e) => {
+        canvasArea.style.background = e.target.value;
+        canvasArea.style.backgroundImage = 'none'; // গ্রেডিয়েন্ট সরিয়ে সলিড কালার দিবে
+    });
+
+    // ফন্ট সাইজ পরিবর্তন
+    let currentSize = 24;
+    function changeFontSize(size) {
+        currentSize += size;
+        if(currentSize > 10 && currentSize < 60) {
+            textPreview.style.fontSize = currentSize + "px";
+        }
+    }
+
+    // ছবি ডাউনলোড
+    function downloadImage() {
+        const btn = document.querySelector('.btn-download');
+        btn.innerText = "প্রসেসিং হচ্ছে...";
+        
+        html2canvas(document.querySelector("#canvas-area"), {
+            scale: 3, // হাই কোয়ালিটি ছবির জন্য
+            backgroundColor: null
+        }).then(canvas => {
+            let link = document.createElement('a');
+            link.download = 'Dainik-Kobita-Design.png';
+            link.href = canvas.toDataURL("image/png");
+            link.click();
+            btn.innerHTML = '<i class="fas fa-cloud-download-alt"></i> গ্যালারিতে সেভ করুন';
+        });
+    }
+</script>
+
+</body>
+</html>
