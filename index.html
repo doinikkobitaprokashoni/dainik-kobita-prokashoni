@@ -239,3 +239,92 @@
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>দৈনিক কবিতা প্রকাশনী | মোজাম্মেল হক সাগর</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;500;700&display=swap');
+        :root { --gold: #d4af37; --dark: #05070a; --glass: rgba(22, 27, 34, 0.8); }
+        body { font-family: 'Hind Siliguri', sans-serif; background: var(--dark); color: #e6edf3; margin: 0; transition: transform 0.2s ease; overflow-x: hidden; }
+        
+        /* জুম কন্ট্রোল */
+        .zoom-controls { position: fixed; bottom: 20px; left: 20px; z-index: 2000; display: flex; gap: 8px; background: var(--glass); padding: 8px; border-radius: 50px; border: 1px solid var(--gold); backdrop-filter: blur(5px); }
+        .zoom-btn { background: var(--gold); border: none; border-radius: 50%; width: 32px; height: 32px; cursor: pointer; font-weight: bold; font-size: 18px; }
+
+        header { background: var(--glass); backdrop-filter: blur(15px); padding: 12px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(212, 175, 55, 0.3); position: sticky; top: 0; z-index: 1000; }
+        .brand { display: flex; align-items: center; gap: 10px; }
+        .brand img { width: 42px; height: 42px; border-radius: 50%; border: 2px solid var(--gold); }
+
+        .hero { text-align: center; padding: 80px 20px; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1200'); background-size: cover; border-bottom: 2px solid var(--gold); }
+        .hero h1 { font-size: 38px; margin: 0; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
+        .hero p { color: var(--gold); font-size: 16px; margin-top: 5px; }
+
+        .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; padding: 30px 5%; max-width: 1200px; margin: 0 auto; }
+        .menu-item { background: var(--glass); border: 1px solid #30363d; padding: 20px; border-radius: 18px; text-align: center; text-decoration: none; transition: 0.3s; display: flex; flex-direction: column; align-items: center; }
+        .menu-item:hover { border-color: var(--gold); transform: translateY(-5px); background: rgba(212, 175, 55, 0.05); }
+        .menu-item i { font-size: 28px; color: var(--gold); margin-bottom: 10px; }
+        .menu-item span { font-size: 16px; font-weight: bold; color: white; }
+        .menu-item small { color: #8b949e; font-size: 11px; margin-top: 3px; }
+
+        .ai-fab { position: fixed; bottom: 20px; right: 20px; width: 55px; height: 55px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; color: #000; cursor: pointer; box-shadow: 0 4px 15px rgba(212,175,55,0.4); z-index: 2000; }
+
+        footer { text-align: center; padding: 40px; background: #030406; border-top: 1px solid #30363d; font-size: 13px; color: #8b949e; }
+    </style>
+</head>
+<body id="app-body">
+
+<div class="zoom-controls">
+    <button class="zoom-btn" onclick="zoom(0.1)">+</button>
+    <button class="zoom-btn" onclick="zoom(-0.1)">-</button>
+    <button class="zoom-btn" onclick="resetZoom()"><i class="fas fa-sync-alt"></i></button>
+</div>
+
+<header>
+    <div class="brand">
+        <img src="1000004837.png" alt="লোগো">
+        <div style="color:white; font-size: 18px;">মোজাম্মেল হক সাগর</div>
+    </div>
+</header>
+
+<section class="hero">
+    <h1>দৈনিক কবিতা প্রকাশনী</h1>
+    <p>সৃজনশীল শব্দের মায়াজালে অনুভূতির শ্রেষ্ঠ ঠিকানা</p>
+</section>
+
+<div class="menu-grid">
+    <a href="about.html" class="menu-item"><i class="fas fa-user-tie"></i><span>পরিচিতি</span><small>লেখক পরিচয়</small></a>
+    <a href="books.html" class="menu-item"><i class="fas fa-book"></i><span>বই</span><small>প্রকাশিত বই</small></a>
+    <a href="recitation.html" class="menu-item"><i class="fas fa-play-circle"></i><span>আবৃত্তি</span><small>ভিডিও সংগ্রহ</small></a>
+    <a href="writings.html" class="menu-item"><i class="fas fa-feather-alt"></i><span>লেখালেখি</span><small>প্রবন্ধ ও গদ্য</small></a>
+    <a href="ebooks.html" class="menu-item"><i class="fas fa-mobile-alt"></i><span>ই-বুক</span><small>ডিজিটাল বই</small></a>
+    <a href="studio.html" class="menu-item"><i class="fas fa-paint-brush"></i><span>ডিজাইন</span><small>কার্ড তৈরি করুন</small></a>
+    <a href="gallery.html" class="menu-item"><i class="fas fa-image"></i><span>গ্যালারি</span><small>ছবির সংগ্রহ</small></a>
+    <a href="news.html" class="menu-item"><i class="fas fa-newspaper"></i><span>সংবাদ</span><small>সাম্প্রতিক খবর</small></a>
+    <a href="contact.html" class="menu-item"><i class="fas fa-paper-plane"></i><span>যোগাযোগ</span><small>কথা বলুন</small></a>
+</div>
+
+<div class="ai-fab" onclick="alert('আস্সালামু আলাইকুম! আমি সাগর AI Agent। আমি আপনাকে সাহায্য করতে পারি।')">
+    <i class="fas fa-robot"></i>
+</div>
+
+<footer>
+    <p>&copy; ২০২৬ মোজাম্মেল হক সাগর | সর্বস্বত্ব সংরক্ষিত</p>
+    <p>গৌরীপুর, ময়মনসিংহ, বাংলাদেশ</p>
+</footer>
+
+<script>
+    let currentZoom = 1;
+    function zoom(v) { currentZoom += v; document.getElementById('app-body').style.zoom = currentZoom; }
+    function resetZoom() { currentZoom = 1; document.getElementById('app-body').style.zoom = 1; }
+
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js');
+    }
+</script>
+</body>
+</html>
