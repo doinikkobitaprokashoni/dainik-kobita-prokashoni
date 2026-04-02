@@ -3,119 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>দৈনিক কবিতা প্রকাশনী - শব্দে গাঁথা অনুভূতির ঠিকানা</title>
+    <title>দৈনিক কবিতা প্রকাশনী | শ্রেষ্ঠ অনলাইন সাহিত্য পোর্টাল</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* মূল স্টাইল */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f2f5;
-            color: #333;
-        }
+        :root { --main-color: #8e44ad; --dark-bg: #2c3e50; --light-gray: #f8f9fa; }
+        body { font-family: 'SolaimanLipi', sans-serif; margin: 0; background-color: var(--light-gray); }
 
-        /* হেডার সেকশন */
-        header {
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            padding: 80px 20px;
-            text-align: center;
-        }
+        /* টপ নেভিগেশন */
+        .navbar { background: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); sticky top: 0; z-index: 1000; }
+        .logo { font-size: 28px; font-weight: bold; color: var(--main-color); text-decoration: none; }
+        .nav-links a { margin-left: 20px; text-decoration: none; color: #333; font-weight: 500; }
 
-        header h1 {
-            font-size: 3rem;
-            margin: 0;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
+        /* ব্যানার */
+        .hero { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1350&q=80'); 
+                 height: 350px; background-size: cover; color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
 
-        header p {
-            font-style: italic;
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
+        /* লেআউট */
+        .container { max-width: 1200px; margin: 40px auto; display: grid; grid-template-columns: 2fr 1fr; gap: 30px; padding: 0 20px; }
 
-        /* কন্টেইনার */
-        .container {
-            max-width: 900px;
-            margin: -40px auto 40px;
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
+        /* কবিতার কার্ড */
+        .poem-card { background: white; border-radius: 10px; overflow: hidden; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: 0.3s; }
+        .poem-card:hover { transform: translateY(-5px); }
+        .poem-content { padding: 25px; }
+        .tag { background: var(--main-color); color: white; padding: 3px 12px; border-radius: 20px; font-size: 12px; }
+        .poem-title { font-size: 24px; margin: 15px 0; color: #222; }
+        .author { color: #888; font-size: 14px; margin-bottom: 15px; }
 
-        .welcome-text {
-            text-align: center;
-            border-bottom: 2px solid #6e8efb;
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-        }
-
-        /* কবিতা কার্ড */
-        .poem-section {
-            background: #fff9f0;
-            padding: 20px;
-            border-left: 5px solid #a777e3;
-            margin: 20px 0;
-            border-radius: 0 10px 10px 0;
-        }
+        /* সাইডবার */
+        .sidebar-box { background: white; padding: 20px; border-radius: 10px; margin-bottom: 25px; }
+        .sidebar-title { border-bottom: 2px solid var(--main-color); padding-bottom: 10px; margin-bottom: 15px; }
 
         /* ফুটার */
-        footer {
-            background: #333;
-            color: white;
-            text-align: center;
-            padding: 30px 20px;
-            margin-top: 50px;
-        }
-
-        .btn {
-            display: inline-block;
-            background: #6e8efb;
-            color: white;
-            padding: 10px 25px;
-            text-decoration: none;
-            border-radius: 25px;
-            transition: 0.3s;
-            margin-top: 20px;
-        }
-
-        .btn:hover {
-            background: #a777e3;
-            transform: scale(1.05);
-        }
+        footer { background: var(--dark-bg); color: white; padding: 50px 20px; text-align: center; }
+        
+        @media (max-width: 768px) { .container { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>দৈনিক কবিতা প্রকাশনী</h1>
-        <p>"শব্দে গাঁথা অনুভূতির শ্রেষ্ঠ ঠিকানা"</p>
-    </header>
+    <nav class="navbar">
+        <a href="#" class="logo">দৈনিক কবিতা প্রকাশনী</a>
+        <div class="nav-links">
+            <a href="#"><i class="fas fa-home"></i> হোম</a>
+            <a href="#">বিভাগ</a>
+            <a href="#">লেখক</a>
+            <a href="#">যোগাযোগ</a>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <h1>শব্দের জাদুতে খুঁজে নিন নিজেকে</h1>
+        <p>বাংলার শ্রেষ্ঠ কবিদের প্রতিদিনের কবিতা সংগ্রহ</p>
+    </div>
 
     <div class="container">
-        <div class="welcome-text">
-            <h2>স্বাগতম</h2>
-            <p>নতুন ও সম্ভাবনাময় কবিদের এক মিলনমেলা। এখানে শব্দের মায়াজালে আমরা খুঁজে পাই হারানো আবেগ আর নতুন স্বপ্ন।</p>
-        </div>
+        <main>
+            <article class="poem-card">
+                <div class="poem-content">
+                    <span class="tag">প্রকৃতি</span>
+                    <h2 class="poem-title">গৌরীপুরের সোনালী বিকেল</h2>
+                    <p class="author"><i class="fas fa-user"></i> মোজাম্মেল হক সাগর | <i class="fas fa-calendar"></i> ০৩ এপ্রিল, ২০২৬</p>
+                    <p>নদীর পাড়ে বসে থাকা ঐ শান্ত বিকেলে,<br>স্মৃতিগুলো কথা বলে যায় আপন খেয়ালে।<br>বাতাসের গান আর পাখির গুঞ্জন,<br>জুড়িয়ে দেয় আমার তৃষ্ণার্ত এই মন।</p>
+                    <a href="#" style="color: var(--main-color); font-weight: bold; text-decoration: none;">পুরো কবিতা পড়ুন...</a>
+                </div>
+            </article>
 
-        <div class="poem-section">
-            <h3>প্রকাশিত কবিতা</h3>
-            <p>আপনার পাঠানো কবিতাগুলো খুব শীঘ্রই এখানে প্রকাশিত হবে। আমাদের সাথে যুক্ত থাকতে নিচে যোগাযোগ করুন।</p>
-        </div>
+            <article class="poem-card">
+                <div class="poem-content">
+                    <span class="tag">দেশপ্রেম</span>
+                    <h2 class="poem-title">বাংলার মাটি আমার প্রাণ</h2>
+                    <p class="author"><i class="fas fa-user"></i> গল্প লেখা মানুষ | <i class="fas fa-calendar"></i> ০২ এপ্রিল, ২০২৬</p>
+                    <p>বুকের গভীরে রাখা লাল সবুজের ঘ্রাণ,<br>মায়ের মমতায় মাখা আমার সোনার বাংলাদেশ...</p>
+                </div>
+            </article>
+        </main>
 
-        <div style="text-align: center;">
-            <p>সম্পাদক: <strong>মোজাম্মেল হক সাগর</strong></p>
-            <a href="#" class="btn">আপনার কবিতা পাঠান</a>
-        </div>
+        <aside>
+            <div class="sidebar-box">
+                <h3 class="sidebar-title">সম্পাদকীয়</h3>
+                <p style="font-size: 14px; line-height: 1.8;">"দৈনিক কবিতা প্রকাশনী" একটি স্বপ্ন। গৌরীপুর থেকে পরিচালিত এই সাহিত্য পোর্টালটি বাংলার আনাচে-কানাচে থাকা প্রতিভাবান কবিদের জন্য একটি প্ল্যাটফর্ম।</p>
+            </div>
+            <div class="sidebar-box">
+                <h3 class="sidebar-title">ক্যাটাগরি</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li><a href="#" style="text-decoration: none; color: #555;"># প্রেম ও বিরহ (১২)</a></li>
+                    <li><a href="#" style="text-decoration: none; color: #555;"># প্রকৃতি ও জীবন (২৫)</a></li>
+                    <li><a href="#" style="text-decoration: none; color: #555;"># আধ্যাত্মিক (০৮)</a></li>
+                </ul>
+            </div>
+        </aside>
     </div>
 
     <footer>
-        <p>&copy; 2026 দৈনিক কবিতা প্রকাশনী | সর্বস্বত্ব সংরক্ষিত</p>
-        <small>গৌরিপুর, ময়মনসিংহ থেকে পরিচালিত</small>
+        <p><strong>দৈনিক কবিতা প্রকাশনী</strong></p>
+        <p>সম্পাদক ও প্রতিষ্ঠাতা: মোজাম্মেল হক সাগর</p>
+        <div style="margin: 20px 0;">
+            <a href="#" style="color: white; font-size: 20px; margin: 0 10px;"><i class="fab fa-facebook"></i></a>
+            <a href="#" style="color: white; font-size: 20px; margin: 0 10px;"><i class="fab fa-youtube"></i></a>
+        </div>
+        <p><small>&copy; ২০২৬ সর্বস্বত্ব সংরক্ষিত।</small></p>
     </footer>
 
 </body>
