@@ -3,116 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>দৈনিক কবিতা প্রকাশনী | আধুনিক সাহিত্য পোর্টাল</title>
+    <title>দৈনিক কবিতা প্রকাশনী | প্রিমিয়াম পোর্টাল</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --primary: #2c3e50; --accent: #8e44ad; --bg: #f4f7f6; }
-        body { font-family: 'SolaimanLipi', sans-serif; margin: 0; background: var(--bg); }
+        :root { --bg-dark: #0a0c10; --card-bg: #161b22; --accent: #f0ad4e; --text-gray: #8b949e; }
+        body { font-family: 'SolaimanLipi', sans-serif; background-color: var(--bg-dark); color: white; margin: 0; padding-bottom: 50px; }
 
-        /* হেডার ও লোগো */
-        header { background: white; padding: 20px; text-align: center; border-bottom: 3px solid var(--accent); }
-        .logo { font-size: 35px; font-weight: bold; color: var(--primary); margin: 0; }
-        
-        /* মেনুবার */
-        nav { background: var(--primary); text-align: center; position: sticky; top: 0; z-index: 1000; }
-        nav a { display: inline-block; padding: 12px 20px; color: white; text-decoration: none; font-weight: bold; }
-        nav a:hover { background: var(--accent); }
+        /* হেডার */
+        header { padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; background: rgba(10, 12, 16, 0.95); sticky top: 0; z-index: 100; }
+        .editor-info { display: flex; align-items: center; gap: 10px; }
+        .logo-circle { width: 40px; height: 40px; border: 1px solid var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--accent); }
 
-        /* বড় ব্যানার (Hero Section) */
-        .hero { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1000&q=80'); 
-                 height: 300px; background-size: cover; background-position: center; color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        /* সেকশন টাইটেল */
+        .section-title { margin: 30px 5%; padding-left: 15px; border-left: 3px solid var(--accent); font-size: 22px; }
 
-        /* মেইন লেআউট */
-        .container { max-width: 1200px; margin: 30px auto; display: grid; grid-template-columns: 2fr 1fr; gap: 25px; padding: 0 20px; }
+        /* কার্ড ডিজাইন */
+        .container { padding: 0 5%; }
+        .premium-card { background: var(--card-bg); border-radius: 20px; overflow: hidden; margin-bottom: 30px; border: 1px solid #30363d; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .card-img { width: 100%; height: 250px; object-fit: cover; border-bottom: 1px solid #30363d; }
+        .card-body { padding: 25px; }
+        .category { color: var(--accent); font-size: 14px; font-weight: bold; margin-bottom: 10px; display: block; }
+        .card-title { font-size: 24px; margin: 10px 0; color: #f0f6fc; text-decoration: none; display: block; }
+        .card-text { color: var(--text-gray); line-height: 1.6; margin-bottom: 20px; font-size: 16px; }
+        .card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #30363d; padding-top: 15px; color: var(--text-gray); font-size: 14px; }
+        .read-more { color: var(--accent); text-decoration: none; font-weight: bold; }
 
-        /* কবিতা কার্ড গ্রিড */
-        .poem-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); cursor: pointer; transition: 0.3s; border-left: 5px solid var(--accent); }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
-        .card h3 { margin: 10px 0; color: #333; }
-        .card p { color: #666; font-size: 15px; }
+        /* পপ-আপ স্টাইল */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 999; overflow-y: auto; }
+        .modal-content { background: var(--card-bg); width: 90%; max-width: 600px; margin: 50px auto; padding: 30px; border-radius: 20px; border: 1px solid var(--accent); text-align: center; }
+        .close-btn { color: red; float: right; font-size: 28px; cursor: pointer; }
 
-        /* পপ-আপ (Modal) */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999; overflow-y: auto; padding-top: 50px; }
-        .modal-content { background: white; width: 90%; max-width: 600px; margin: auto; padding: 35px; border-radius: 20px; position: relative; line-height: 1.8; text-align: center; }
-        .close { position: absolute; right: 20px; top: 15px; font-size: 30px; cursor: pointer; color: #e74c3c; }
-
-        /* সাইডবার */
-        .sidebar { background: white; padding: 20px; border-radius: 12px; height: fit-content; }
-        .sidebar h4 { border-bottom: 2px solid var(--accent); padding-bottom: 10px; }
-
-        footer { background: var(--primary); color: white; text-align: center; padding: 40px; margin-top: 50px; }
-
-        @media (max-width: 768px) { .container { grid-template-columns: 1fr; } }
+        footer { text-align: center; padding: 40px; border-top: 1px solid #30363d; color: var(--text-gray); }
     </style>
 </head>
 <body>
 
 <header>
-    <h1 class="logo">দৈনিক কবিতা প্রকাশনী</h1>
-    <p style="margin: 5px 0; color: #7f8c8d;">শব্দের মায়াজালে অনুভূতির ছোঁয়া</p>
+    <div class="editor-info">
+        <div class="logo-circle"><i class="fas fa-feather-alt"></i></div>
+        <div>
+            <div style="font-weight: bold; font-size: 18px;">মোজাম্মেল হক সাগর</div>
+            <div style="font-size: 12px; color: var(--text-gray);">লেখক ও সম্পাদক</div>
+        </div>
+    </div>
+    <div style="font-size: 24px;"><i class="fas fa-bars"></i></div>
 </header>
 
-<nav>
-    <a href="#">প্রচ্ছদ</a>
-    <a href="#">প্রেম</a>
-    <a href="#">দেশ</a>
-    <a href="#">প্রকৃতি</a>
-    <a href="#">যোগাযোগ</a>
-</nav>
-
-<div class="hero">
-    <h2>স্বাগতম সাহিত্যের আঙিনায়</h2>
-    <p>প্রতিদিন নতুন কবিতা ও গল্প পড়ুন</p>
-</div>
+<div class="section-title">সাম্প্রতিক সংবাদ / কবিতা</div>
 
 <div class="container">
-    <main>
-        <h2 style="border-left: 5px solid var(--accent); padding-left: 15px;">সাম্প্রতিক প্রকাশনা</h2>
-        <div class="poem-grid">
-            <div class="card" onclick="openPoem('গৌরীপুরের সোনালী বিকেল', 'মোজাম্মেল হক সাগর', 'নদীর পাড়ে বসে থাকা ঐ শান্ত বিকেলে,\nস্মৃতিগুলো কথা বলে যায় আপন খেয়ালে।\nবাতাসের গান আর পাখির গুঞ্জন,\nজুড়িয়ে দেয় আমার তৃষ্ণার্ত এই মন।\n\nবাংলার প্রকৃতি মায়ার বাঁধন,\nছড়িয়ে দেয় আজ নতুন স্বপন।')">
-                <small style="color:var(--accent);"># প্রকৃতি</small>
-                <h3>গৌরীপুরের সোনালী বিকেল</h3>
-                <p>নদীর পাড়ে বসে থাকা ঐ শান্ত বিকেলে...</p>
-                <b style="color:var(--accent);">পুরোটা পড়ুন →</b>
+    <div class="premium-card">
+        <img src="https://images.unsplash.com/photo-1476242485519-f726a996e46e?auto=format&fit=crop&w=800&q=80" class="card-img" alt="Poetry">
+        <div class="card-body">
+            <span class="category">সাহিত্য</span>
+            <a href="#" class="card-title">গৌরীপুরের সেই রূপকথার বিকেল</a>
+            <p class="card-text">নদীর পাড়ে বসে থাকা ঐ শান্ত বিকেলে, স্মৃতিগুলো কথা বলে যায় আপন খেয়ালে। বাতাসের গান আর পাখির গুঞ্জন...</p>
+            <div class="card-footer">
+                <span>০৩ এপ্রিল ২০২৬</span>
+                <a href="javascript:void(0)" onclick="openPoem('গৌরীপুরের সেই বিকেল', 'মোজাম্মেল হক সাগর', 'নদীর পাড়ে বসে থাকা ঐ শান্ত বিকেলে,\nস্মৃতিগুলো কথা বলে যায় আপন খেয়ালে।\nবাতাসের গান আর পাখির গুঞ্জন,\nজুড়িয়ে দেয় আমার তৃষ্ণার্ত এই মন।')" class="read-more">পড়ুন →</a>
             </div>
+        </div>
+    </div>
 
-            <div class="card" onclick="openPoem('স্মৃতির শহর', 'Golpo Lekha Manush', 'গৌরীপুরের ঐ মেঠো পথে,\nযখন বিকেল নামতো,\nহৃদয় জুড়ে কত যে কথা,\nচুপটি করে থামতো।\n\nসেই দিনগুলো আজও মনে পড়ে,\nচোখের কোণে অশ্রু হয়ে ঝরে।')">
-                <small style="color:var(--accent);"># প্রেম</small>
-                <h3>স্মৃতির শহর</h3>
-                <p>গৌরীপুরের ঐ মেঠো পথে যখন বিকেল নামতো...</p>
-                <b style="color:var(--accent);">পুরোটা পড়ুন →</b>
+    <div class="premium-card">
+        <img src="https://images.unsplash.com/photo-1516414447565-b14be0adf13e?auto=format&fit=crop&w=800&q=80" class="card-img" alt="Village">
+        <div class="card-body">
+            <span class="category">স্মৃতিচারণ</span>
+            <a href="#" class="card-title">হারিয়ে যাওয়া দিনগুলো</a>
+            <p class="card-text">বুকের গভীরে রাখা সেই মেঠো পথের ধুলোমাখা স্মৃতি। আজ শহরের যান্ত্রিকতায় আমরা বড্ড একা...</p>
+            <div class="card-footer">
+                <span>০২ এপ্রিল ২০২৬</span>
+                <a href="#" class="read-more">পড়ুন →</a>
             </div>
-            
-            </div>
-    </main>
-
-    <aside class="sidebar">
-        <h4>সম্পাদকীয়</h4>
-        <p style="font-size: 14px;">"দৈনিক কবিতা প্রকাশনী" নতুন কবিদের জন্য একটি উন্মুক্ত জানালা। আপনার কবিতা আমাদের পাঠাতে পারেন।</p>
-        <br>
-        <h4>বিভাগ</h4>
-        <ul style="list-style: none; padding: 0; font-size: 14px;">
-            <li><a href="#" style="text-decoration:none; color:#333;">👉 প্রেম ও বিরহ</a></li>
-            <li><a href="#" style="text-decoration:none; color:#333;">👉 দেশাত্মবোধক</a></li>
-            <li><a href="#" style="text-decoration:none; color:#333;">👉 ছোটগল্প</a></li>
-        </ul>
-    </aside>
+        </div>
+    </div>
 </div>
 
 <div id="poemModal" class="modal">
     <div class="modal-content">
-        <span class="close" onclick="closePoem()">&times;</span>
+        <span class="close-btn" onclick="closePoem()">&times;</span>
         <h2 id="modalTitle" style="color:var(--accent);"></h2>
-        <p id="modalAuthor" style="font-style:italic; color:#777;"></p>
-        <hr>
-        <div id="modalBody" style="white-space: pre-line; font-size: 18px; color: #333; margin-top: 20px;"></div>
+        <p id="modalAuthor" style="font-style:italic;"></p>
+        <div id="modalBody" style="white-space: pre-line; margin-top: 20px; line-height: 2;"></div>
     </div>
 </div>
 
 <footer>
-    <p>সত্ত্বাধিকারী ও সম্পাদক: <strong>মোজাম্মেল হক সাগর</strong></p>
-    <p>গৌরীপুর, ময়মনসিংহ | ২০২৫</p>
+    <p>সত্ত্বাধিকারী: মোজাম্মেল হক সাগর</p>
+    <p>&copy; ২০২৬ দৈনিক কবিতা প্রকাশনী</p>
 </footer>
 
 <script>
@@ -124,9 +102,6 @@
     }
     function closePoem() {
         document.getElementById('poemModal').style.display = "none";
-    }
-    window.onclick = function(event) {
-        if (event.target == document.getElementById('poemModal')) { closePoem(); }
     }
 </script>
 
