@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>কবিতা ডিজাইন স্টুডিও | দৈনিক কবিতা প্রকাশনী</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --gold: #d4af37; --dark: #0d1117; }
+        body { font-family: 'SolaimanLipi', sans-serif; background: var(--dark); color: white; text-align: center; margin: 0; padding: 20px; }
+        
+        /* ডিজাইন বোর্ড */
+        #canvas-area {
+            width: 350px; height: 350px;
+            margin: 20px auto;
+            background: linear-gradient(45deg, #161b22, #30363d);
+            display: flex; align-items: center; justify-content: center;
+            border: 5px solid var(--gold); border-radius: 15px;
+            position: relative; overflow: hidden; padding: 20px;
+        }
+        #text-preview { font-size: 24px; line-height: 1.5; color: white; white-space: pre-wrap; transition: 0.3s; }
+
+        /* কন্ট্রোল প্যানেল */
+        .controls { max-width: 400px; margin: 0 auto; background: #161b22; padding: 20px; border-radius: 15px; border: 1px solid #30363d; }
+        textarea { width: 90%; height: 80px; padding: 10px; border-radius: 10px; border: none; margin-bottom: 10px; font-family: inherit; }
+        .tool-box { display: flex; justify-content: space-around; margin-bottom: 15px; flex-wrap: wrap; gap: 10px; }
+        input[type="color"] { border: none; width: 40px; height: 40px; cursor: pointer; background: none; }
+        
+        .btn { padding: 10px 20px; border-radius: 25px; border: none; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .btn-download { background: var(--gold); color: black; margin-top: 10px; width: 100%; }
+        .btn-bg { background: #30363d; color: white; font-size: 12px; }
+    </style>
+</head>
+<body>
+
+    <h2>🎨 কবিতা ডিজাইন স্টুডিও</h2>
+    <p>আপনার প্রিয় উক্তি বা কবিতা ডিজাইন করুন</p>
+
+    <div id="canvas-area">
+        <div id="text-preview">এখানে আপনার কবিতা দেখা যাবে...</div>
+    </div>
+
+    <div class="controls">
+        <textarea id="user-text" placeholder="এখানে আপনার কবিতা বা উক্তি লিখুন..."></textarea>
+        
+        <div class="tool-box">
+            <div>
+                <small>লেখা</small><br>
+                <input type="color" id="text-color" value="#ffffff">
+            </div>
+            <div>
+                <small>বোর্ড</small><br>
+                <input type="color" id="bg-color" value="#161b22">
+            </div>
+            <button class="btn btn-bg" onclick="changeFontSize(2)">A+</button>
+            <button class="btn btn-bg" onclick="changeFontSize(-2)">A-</button>
+        </div>
+
+        <button class="btn btn-download" onclick="downloadImage()">
+            <i class="fas fa-download"></i> ছবি সেভ করুন
+        </button>
+    </div>
+
+    <p style="margin-top: 20px;"><a href="index.html" style="color: var(--gold); text-decoration: none;">← হোম পেজে ফিরে যান</a></p>
+
+    <script>
+        const textInput = document.getElementById('user-text');
+        const textPreview = document.getElementById('text-preview');
+        const textColor = document.getElementById('text-color');
+        const bgColor = document.getElementById('bg-color');
+        const canvas = document.getElementById('canvas-area');
+
+        // লাইভ টেক্সট আপডেট
+        textInput.addEventListener('input', () => {
+            textPreview.innerText = textInput.value || "এখানে আপনার কবিতা দেখা যাবে...";
+        });
+
+        // কালার চেঞ্জ
+        textColor.addEventListener('input', () => { textPreview.style.color = textColor.value; });
+        bgColor.addEventListener('input', () => { canvas.style.background = bgColor.value; });
+
+        // ফন্ট সাইজ চেঞ্জ
+        let currentSize = 24;
+        function changeFontSize(size) {
+            currentSize += size;
+            textPreview.style.fontSize = currentSize + "px";
+        }
+
+        // ছবি ডাউনলোড ফাংশন
+        function downloadImage() {
+            html2canvas(document.querySelector("#canvas-area")).then(canvas => {
+                let link = document.createElement('a');
+                link.download = 'my-poetry-design.png';
+                link.href = canvas.toDataURL();
+                link.click();
+            });
+        }
+    </script>
+</body>
+</html>
